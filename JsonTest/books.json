@@ -1,0 +1,21 @@
+{
+   "storeId" : 1,
+   "storeName" : "Amazon",
+   "eBooks":[
+      {
+         "language":"Pascal",
+         "edition":"third",
+	       "price" : "200$"
+      },
+      {
+         "language":"Python",
+         "edition":"four",
+	       "price" : "150$"
+      },
+      {
+         "language":"SQL",
+         "edition":"second",
+	       "price" : "100$"
+      }
+   ]
+}
