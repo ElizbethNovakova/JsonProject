@@ -9,29 +9,30 @@ namespace JsonTest
 {
     public class Tests
     {
-        private BooksDTO parsedObject;
+        private BookStoreDTO parsedObject;
         private const string FILE_NAME = "books.json";
         [SetUp]
         public void Setup()
         {
-            parsedObject = JsonConvert.DeserializeObject<BooksDTO>(File.ReadAllText(FILE_NAME));
+            parsedObject = JsonConvert.DeserializeObject<BookStoreDTO>(File.ReadAllText(FILE_NAME));
         }
 
         [Test]
         public void isBookPresent()
         {
-            var expectedBook = new Book("Pascal", "third", "200$");
+            var expectedBook = new BookDTO("Pascal", "third", "200$");
             var actualBooks = parsedObject.getEBooks();
-           
-            Assert.IsTrue(actualBooks.Exists(expectedBook.Equals), "json should contain Pascal book");
+          
+            CollectionAssert.Contains(actualBooks, expectedBook, "json should contain Pascal book");
         }
        
         [Test]
         public void isBookNotPresent()
         {
-            var expectedBook = new Book("Java", "fourth", "250$");
+            var expectedBook = new BookDTO("Java", "fourth", "250$");
             var actualBooks = parsedObject.getEBooks();
-            Assert.IsFalse(actualBooks.Exists(expectedBook.Equals), "json should not contain Java book");
+
+            CollectionAssert.DoesNotContain(actualBooks, expectedBook, "json should not contain Java book");
         }
     }
 }

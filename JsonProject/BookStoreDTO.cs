@@ -5,14 +5,14 @@ using Newtonsoft.Json;
 
 namespace JsonProject
 {
-    public class BooksDTO
+    public class BookStoreDTO
     {
         [JsonProperty("storeId")]
         private int storeId;
         [JsonProperty("storeName")]
         private string storeName;
         [JsonProperty("eBooks")]
-        private List<Book> eBooks;
+        private List<BookDTO> eBooks;
 
         public int getStoreId() { return storeId; }
         public void setStoreId(int storeId)
@@ -26,8 +26,8 @@ namespace JsonProject
             this.storeName = storeName;
         }
 
-        public List<Book> getEBooks() { return eBooks; }
-        public void setEBooks(List<Book> eBooks)
+        public List<BookDTO> getEBooks() { return eBooks; }
+        public void setEBooks(List<BookDTO> eBooks)
         {
             this.eBooks = eBooks;
         }

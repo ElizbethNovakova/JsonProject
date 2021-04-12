@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace JsonProject
 {
-    public class Book
+    public class BookDTO
     {
         [JsonProperty("language")]
         private string language;
@@ -14,7 +14,7 @@ namespace JsonProject
         [JsonProperty("price")]
         private string price;
 
-        public Book(string language, string edition, string price)
+        public BookDTO(string language, string edition, string price)
         {
             this.language = language;
             this.edition = edition;
@@ -41,17 +41,10 @@ namespace JsonProject
 
         public override bool Equals(object obj)
         {
-            return obj is Book book &&
+            return obj is BookDTO book &&
                    language == book.language &&
                    edition == book.edition &&
                    price == book.price;
         }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(language, edition, price);
-        }
-
-
     }
 }
