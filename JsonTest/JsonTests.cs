@@ -9,56 +9,29 @@ namespace JsonTest
 {
     public class Tests
     {
-        private JSONObject obj;
+        private BooksDTO parsedObject;
+        private const string FILE_NAME = "books.json";
         [SetUp]
         public void Setup()
         {
-           obj = JsonConvert.DeserializeObject<JSONObject>(File.ReadAllText(@"D:\SoftServe\books.json"));
+            parsedObject = JsonConvert.DeserializeObject<BooksDTO>(File.ReadAllText(FILE_NAME));
         }
 
         [Test]
-        public void TestName()
+        public void isBookPresent()
         {
-            var expected = "Amazon";
-            var actual = obj.storeName;
-            Assert.AreEqual(expected, actual, "store names must be the same");
+            var expectedBook = new Book("Pascal", "third", "200$");
+            var actualBooks = parsedObject.getEBooks();
+           
+            Assert.IsTrue(actualBooks.Exists(expectedBook.Equals), "json should contain Pascal book");
         }
-
+       
         [Test]
-        public void TestStoreId()
+        public void isBookNotPresent()
         {
-            var expected = 1;
-            var actual = obj.storeId;
-            Assert.AreEqual(expected, actual, "store id must be the same");
-        }
-
-        [Test]
-        public void TestEBooksSize()
-        {
-            var expected = 3;
-            var actual = obj.eBooks.Count;
-            Assert.AreEqual(expected, actual, "count of books must be the same");
-        }
-
-        [Test]
-        public void TestEBooksContainsLanguage()
-        {
-            List<Book> books = obj.eBooks;
-            Assert.IsTrue(books.Exists(book => book.language.Contains("Pascal")));
-        }
-
-        [Test]
-        public void TestEBooksContainsEdition()
-        {
-            List<Book> books = obj.eBooks;
-            Assert.IsTrue(books.Exists(book => book.edition.Contains("second")));
-        }
-
-        [Test]
-        public void TestEBooksContainsPrice()
-        {
-            List<Book> books = obj.eBooks;
-            Assert.IsTrue(books.Exists(book => book.price.Contains("150$")));
+            var expectedBook = new Book("Java", "fourth", "250$");
+            var actualBooks = parsedObject.getEBooks();
+            Assert.IsFalse(actualBooks.Exists(expectedBook.Equals), "json should not contain Java book");
         }
     }
 }
